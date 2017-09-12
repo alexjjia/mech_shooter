@@ -6,11 +6,7 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 movementVector;
 	private float verticalMove, horizontalMove;
 	private CharacterController characterController;
-
-
-	//public GameObject bullet;
-
-//	public Camera secondaryCamera;
+	public GameObject mainCamera; //the main camera.
 	public float moveSpeed;
 
 	public float jumpPower;
@@ -35,6 +31,10 @@ public class PlayerController : MonoBehaviour {
 			if (Input.GetButtonDown ("A")) { //controls jumping.
 				movementVector.y += jumpPower;
 			}
+		}
+		// 'normalizes' the player's forward direction.
+		if (Input.GetButtonDown ("LeftJoystickClick")) {
+			characterController.transform.forward = mainCamera.transform.forward;
 		}
 
 		movementVector.y -= gravity * Time.deltaTime;

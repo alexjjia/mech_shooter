@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class Reticle : MonoBehaviour {
 	public Camera cam;
 	public GameObject canvas;
+	public GameObject compass;
 	public Text scoreText;
-	private bool showHUD;
+	public bool lockedOn;
+	private bool showHUD, showCompass;
 	private RaycastHit hit;
 	private float distance;
+	private int score;
 	private Vector3 scale;
 	private float maxTolerance = 20.0f; //max and min tolerance values for reticle distance, since distance directly affects size.
 	private float minTolerance = 0.4f;
@@ -17,7 +20,10 @@ public class Reticle : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scale = transform.localScale;
+		score = 0;
 		showHUD = false;
+		showCompass = false;
+		lockedOn = false;
 		showDistance ();
 	}
 	
@@ -44,6 +50,7 @@ public class Reticle : MonoBehaviour {
 
 		if (Input.GetButtonDown ("Start Button")) {
 			showHUD = !showHUD;
+			showCompass = !showCompass;
 		}
 
 		transform.localScale = scale * (1+(1/distance)); //rescales the reticle based off size.
@@ -52,7 +59,17 @@ public class Reticle : MonoBehaviour {
 	void showDistance()
 	{
 		canvas.SetActive (showHUD);
-		//scoreText.text = "" + Mathf.Round(distance).ToString();
+		compass.SetActive (showCompass);
+		scoreText.text = "" + score.ToString();
+	}
+
+	void OnCollisonEnter (Collider col)
+	{
+		if (col.gameObject.CompareTag("Enemy")) {
+			lockedOn = true;
+		} else {
+			lockedOn = false;
+		}
 	}
 
 }
