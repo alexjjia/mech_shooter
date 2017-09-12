@@ -35,7 +35,7 @@ public class TurretController : MonoBehaviour {
 	void Update () {
 		horizontalTurn = Input.GetAxis ("RightJoystickX") * turnSpeed; //controls turning.
 		verticalTurn = Input.GetAxis ("RightJoystickY") * turnSpeed;
-		transform.rotation = Quaternion.RotateTowards (transform.rotation, (Quaternion.Euler(verticalTurn*10,horizontalTurn*30,0)), Time.deltaTime*300f);
+		transform.rotation = Quaternion.RotateTowards (transform.rotation, (Quaternion.Euler(verticalTurn*10,horizontalTurn*30,0)), Time.deltaTime*250f);
 		//transform.rotation = (Quaternion.AngleAxis(30, (new Vector3(verticalTurn, horizontalTurn, 0))));
 
 		//Other input controls.

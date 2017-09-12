@@ -12,10 +12,11 @@ public class Reticle : MonoBehaviour {
 	private bool showHUD, showCompass;
 	private RaycastHit hit;
 	private float distance;
-	private int score;
+	public int score;
 	private Vector3 scale;
 	private float maxTolerance = 20.0f; //max and min tolerance values for reticle distance, since distance directly affects size.
 	private float minTolerance = 0.4f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -54,7 +55,7 @@ public class Reticle : MonoBehaviour {
 		}
 
 		transform.localScale = scale * (1+(1/distance)); //rescales the reticle based off size.
-
+		lockedOn = false;
 	}
 	void showDistance()
 	{
@@ -62,14 +63,6 @@ public class Reticle : MonoBehaviour {
 		compass.SetActive (showCompass);
 		scoreText.text = "" + score.ToString();
 	}
-
-	void OnCollisonEnter (Collider col)
-	{
-		if (col.gameObject.CompareTag("Enemy")) {
-			lockedOn = true;
-		} else {
-			lockedOn = false;
-		}
-	}
+		
 
 }
